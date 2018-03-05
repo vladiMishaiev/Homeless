@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.homeless.UserDashboard">
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/user_reviews_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/holo_orange_light"
+                android:elevation="0dp"
+                android:text="My Reviews"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/user_edit_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/holo_blue_light"
+                android:elevation="0dp"
+                android:text="Edit Account"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/user_map_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/holo_green_light"
+                android:elevation="0dp"
+                android:text="Go to map"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/user_signout_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                android:elevation="0dp"
+                android:text="Sign out"
+                android:textStyle="bold" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
