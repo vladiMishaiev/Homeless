@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".UserDetails" />
         <activity android:name=".UserDashboard" />
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".MapActivity" />
+        <activity android:name=".ReviewActivity"></activity>
     </application>
 
 </manifest>

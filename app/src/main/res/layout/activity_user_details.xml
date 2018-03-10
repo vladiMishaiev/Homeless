@@ -53,7 +53,7 @@
                 android:maxLines="1" />
 
             <Button
-                android:id="@+id/user_details_submit_button"
+                android:id="@+id/review_submit_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

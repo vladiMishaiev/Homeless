@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.homeless.ReviewActivity">
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="108dp">
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/ReviewAddress_Input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Address"
+                android:inputType="textPersonName"
+                android:singleLine="false"></EditText>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@android:style/Widget.Material.Light.RatingBar"
+                android:layout_width="242dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="28dp"
+                android:isIndicator="false"
+                app:layout_constraintStart_toEndOf="@+id/ScoreLabel"
+                app:layout_constraintTop_toBottomOf="@+id/FloorsLabel" />
+
+            <CheckBox
+                android:id="@+id/AC_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="44dp"
+                android:text="AC"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/PriceInput" />
+
+            <CheckBox
+                android:id="@+id/Bars_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="45dp"
+                android:text="Bars"
+                app:layout_constraintStart_toEndOf="@+id/AC_box"
+                app:layout_constraintTop_toBottomOf="@+id/PriceInput" />
+
+            <TextView
+                android:id="@+id/RoomsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Rooms:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
+
+            <TextView
+                android:id="@+id/FloorsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:text="Floors:"
+                app:layout_constraintStart_toEndOf="@+id/Rooms_Spinner"
+                app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
+
+            <Spinner
+                android:id="@+id/Rooms_Spinner"
+                android:layout_width="63dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toEndOf="@+id/RoomsLabel"
+                app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
+
+            <TextView
+                android:id="@+id/SizeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="16dp"
+                android:text="Size:"
+                app:layout_constraintEnd_toStartOf="@+id/Size_Input"
+                app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
+
+            <EditText
+                android:id="@+id/Size_Input"
+                android:layout_width="69dp"
+                android:layout_height="39dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
+
+            <Spinner
+                android:id="@+id/Floor_Spinner"
+                android:layout_width="62dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/SizeLabel"
+                app:layout_constraintStart_toEndOf="@+id/FloorsLabel"
+                app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
+
+            <TextView
+                android:id="@+id/ScoreLabel"
+                android:layout_width="70dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
+                android:text="Score:"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/FloorsLabel" />
+
+            <TextView
+                android:id="@+id/PriceLabel"
+                android:layout_width="70dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="Price:"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ScoreLabel" />
+
+            <EditText
+                android:id="@+id/PriceInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Enter Price"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/PriceLabel"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+            <CheckBox
+                android:id="@+id/Parking_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="45dp"
+                android:text="Parking spot"
+                app:layout_constraintStart_toEndOf="@+id/Bars_Box"
+                app:layout_constraintTop_toBottomOf="@+id/PriceInput" />
+
+            <CheckBox
+                android:id="@+id/Elevator_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="45dp"
+                android:text="Elevator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Parking_Box"
+                app:layout_constraintTop_toBottomOf="@+id/PriceInput" />
+
+            <CheckBox
+                android:id="@+id/Safety_Room_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Safety Room"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/AC_box" />
+
+            <CheckBox
+                android:id="@+id/Terrace_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Terrace"
+                app:layout_constraintStart_toEndOf="@+id/Safety_Room_Box"
+                app:layout_constraintTop_toBottomOf="@+id/AC_box" />
+
+            <CheckBox
+                android:id="@+id/Sun_Terrace_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Sun Terrace"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Safety_Room_Box" />
+
+            <CheckBox
+                android:id="@+id/AccessForDisabled_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Access For Disabled"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Terrace_Box"
+                app:layout_constraintTop_toBottomOf="@+id/AC_box" />
+
+            <CheckBox
+                android:id="@+id/Storage_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Storage"
+                app:layout_constraintStart_toEndOf="@+id/Sun_Terrace_Box"
+                app:layout_constraintTop_toBottomOf="@+id/Terrace_Box" />
+
+            <CheckBox
+                android:id="@+id/Renovated_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Renovated"
+                app:layout_constraintStart_toEndOf="@+id/Storage_Box"
+                app:layout_constraintTop_toBottomOf="@+id/Safety_Room_Box" />
+
+            <CheckBox
+                android:id="@+id/Pets_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Pets"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Renovated_Box"
+                app:layout_constraintTop_toBottomOf="@+id/AccessForDisabled_Box" />
+
+            <CheckBox
+                android:id="@+id/LongTermLease_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Long Term Lease"
+                app:layout_constraintStart_toEndOf="@+id/Shared_Box"
+                app:layout_constraintTop_toBottomOf="@+id/Storage_Box" />
+
+            <CheckBox
+                android:id="@+id/Shared_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Shared"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Sun_Terrace_Box" />
+
+            <CheckBox
+                android:id="@+id/Unit_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Unit"
+                app:layout_constraintStart_toEndOf="@+id/LongTermLease_Box"
+                app:layout_constraintTop_toBottomOf="@+id/Renovated_Box" />
+
+            <CheckBox
+                android:id="@+id/Furnished_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Furnished"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/LongTermLease_Box" />
+
+            <CheckBox
+                android:id="@+id/Boiler_Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Boiler"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Unit_Box"
+                app:layout_constraintTop_toBottomOf="@+id/Pets_Box" />
+
+
+            <EditText
+                android:id="@+id/ReviewInput"
+                android:layout_width="345dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Enter Review"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Furnished_Box" />
+
+            <Button
+                android:id="@+id/review_submit_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/holo_green_light"
+                android:elevation="0dp"
+                android:text="Submit"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ReviewInput"/>
+
+            <Button
+                android:id="@+id/GoTo_Neighborhood_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/holo_green_light"
+                android:elevation="0dp"
+                android:text="Neighborhood Reviews"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/review_submit_button"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

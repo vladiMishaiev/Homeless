@@ -31,7 +31,6 @@ public class UserDetails extends AppCompatActivity {
     private EditText name,phone,mEmail, mPassword;
     private Button btnSubmit;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +39,20 @@ public class UserDetails extends AppCompatActivity {
         initUi();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        setAuthListner();
 
+        setBtns();
+
+    }
+
+    private void saveUser(){
+        initUser();
+        FirebaseUser user = mAuth.getCurrentUser();
+        mDatabase.child("Users").child(user.getUid()).setValue(theUser);
+        Intent intent = new Intent(UserDetails.this, UserDashboard.class);
+        startActivity(intent);
+    }
+
+    private void setBtns(){
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,28 +70,17 @@ public class UserDetails extends AppCompatActivity {
         });
     }
 
-    private void saveUser(){
+    private void initUser () {
+        if (theUser == null) {
+            theUser = new User("", name.getText().toString(), phone.getText().toString()
+                    , mPassword.getText().toString(), mEmail.getText().toString());
 
-    }
-    private void setAuthListner(){
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
-    }
-    private void initUser (){
-        theUser = new User("",name.getText().toString(),phone.getText().toString()
-                ,mPassword.getText().toString(),mEmail.getText().toString());
+        }else{
+            theUser.setName(name.getText().toString());
+            theUser.seteMail(mEmail.getText().toString());
+            theUser.setPassword(mPassword.getText().toString());
+            theUser.setPhone(phone.getText().toString());
+        }
     }
 
     private boolean validateParams(){
@@ -92,7 +92,7 @@ public class UserDetails extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.edit_phone);
         mEmail = (EditText) findViewById(R.id.edit_email);
         mPassword = (EditText) findViewById(R.id.edit_password);
-        btnSubmit = (Button) findViewById(R.id.user_details_submit_button);
+        btnSubmit = (Button) findViewById(R.id.review_submit_button);
     }
 
     private void loadDetailsToScreen(User user){
