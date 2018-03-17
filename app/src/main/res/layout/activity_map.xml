@@ -13,4 +13,13 @@
         android:layout_width="fill_parent">
     </EditText>
 
+    <NumberPicker
+        android:id="@+id/numberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ReviewAddress_Input"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="34dp" />
+
 </RelativeLayout>

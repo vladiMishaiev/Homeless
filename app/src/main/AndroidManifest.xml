@@ -19,7 +19,8 @@
         <activity android:name=".UserDetails" />
         <activity android:name=".UserDashboard" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".ReviewActivity"></activity>
+        <activity android:name=".ReviewActivity" />
+        <activity android:name=".MyReviewsActivity"></activity>
     </application>
 
 </manifest>

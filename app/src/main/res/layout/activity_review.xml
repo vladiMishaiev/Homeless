@@ -63,8 +63,7 @@
                 android:id="@+id/RoomsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="18dp"
                 android:text="Rooms:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
@@ -73,18 +72,15 @@
                 android:id="@+id/FloorsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="18dp"
                 android:text="Floors:"
                 app:layout_constraintStart_toEndOf="@+id/Rooms_Spinner"
                 app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
 
             <Spinner
                 android:id="@+id/Rooms_Spinner"
-                android:layout_width="63dp"
-                android:layout_height="27dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="93dp"
+                android:layout_height="49dp"
                 android:visibility="visible"
                 app:layout_constraintStart_toEndOf="@+id/RoomsLabel"
                 app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />
@@ -93,7 +89,6 @@
                 android:id="@+id/SizeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginTop="16dp"
                 android:text="Size:"
                 app:layout_constraintEnd_toStartOf="@+id/Size_Input"
@@ -112,11 +107,8 @@
 
             <Spinner
                 android:id="@+id/Floor_Spinner"
-                android:layout_width="62dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="81dp"
+                android:layout_height="49dp"
                 app:layout_constraintEnd_toStartOf="@+id/SizeLabel"
                 app:layout_constraintStart_toEndOf="@+id/FloorsLabel"
                 app:layout_constraintTop_toBottomOf="@+id/ReviewAddress_Input" />

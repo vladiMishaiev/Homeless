@@ -2,18 +2,18 @@ package com.homeless.Logic;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-/**
- * Created by vladi on 2/25/2018.
- */
-
 @IgnoreExtraProperties
 public class Review {
 
-    private String id;
+    private int id;
     private String userIdl;
-    private String country;
+    //private String country;
     private String neighborhood;
-    private int numOfRooms;
+
+
+
+    private String address;
+    private double numOfRooms;
     private int floor;
     private double size;
     private double price;
@@ -40,7 +40,7 @@ public class Review {
     //stars 0.5 resolution
     private double score;
 
-    public Review(String id, String userIdl) {
+    public Review(int id, String userIdl) {
         this.id = id;
         this.userIdl = userIdl;
         initPrps();
@@ -69,13 +69,19 @@ public class Review {
         boiler = false;
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -87,14 +93,6 @@ public class Review {
         this.userIdl = userIdl;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     public String getNeighborhood() {
         return neighborhood;
     }
@@ -103,11 +101,11 @@ public class Review {
         this.neighborhood = neighborhood;
     }
 
-    public int getNumOfRooms() {
+    public double getNumOfRooms() {
         return numOfRooms;
     }
 
-    public void setNumOfRooms(int numOfRooms) {
+    public void setNumOfRooms(double numOfRooms) {
         this.numOfRooms = numOfRooms;
     }
 
