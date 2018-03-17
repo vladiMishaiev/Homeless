@@ -15,9 +15,13 @@ import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.homeless.Logic.Review;
+import com.homeless.Logic.User;
 
 public class ReviewActivity extends AppCompatActivity {
 
@@ -42,7 +46,29 @@ public class ReviewActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         initUI();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            int value = extras.getInt("ReviewID");
+            //loadReview(Integer.parseInt(value));
+            loadReview(value);
+        }
+
         setButtons();
+    }
+
+    private void loadReview(final int id){
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                myReview = dataSnapshot.child("Reviews").child(id+"").getValue(Review.class);
+                updateReviewUI();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private int getNextReviewID (){
@@ -76,6 +102,34 @@ public class ReviewActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void updateReviewUI(){
+        addressField.setText(myReview.getAddress());
+        numOfRooms.setSelection(getIndex(numOfRooms,myReview.getNumOfRooms()+""));
+        floor.setSelection(getIndex(floor,myReview.getFloor()+""));
+
+        size.setText(myReview.getSize()+"");
+        price.setText(myReview.getPrice()+"");
+
+        AC.setChecked(myReview.isAC());
+        bars.setChecked(myReview.isBars());
+        parking.setChecked(myReview.isParking());
+        elevators.setChecked(myReview.isElevators());
+        accessFoDisabled.setChecked(myReview.isAccessFoDisabled());
+        safetyRoom.setChecked(myReview.isSafetyRoom());
+        terrace.setChecked(myReview.isTerrace());
+        storage.setChecked(myReview.isStorage());
+        shared.setChecked(myReview.isShared());
+        petsAllowed.setChecked(myReview.isPetsAllowed());
+        isLongTermLease.setChecked(myReview.isLongTermLease());
+        isUnit.setChecked(myReview.isUnit());
+        furnished.setChecked(myReview.isFurnished());
+        boiler.setChecked(myReview.isBoiler());
+
+        userReview.setText(myReview.getReview());
+        scoreBar.setRating((float)myReview.getScore());
+    }
+
     private void updateReviewProps(){
         myReview.setAddress(addressField.getText().toString());
         myReview.setNumOfRooms(Double.parseDouble(numOfRooms.getSelectedItem().toString()));
@@ -138,5 +192,18 @@ public class ReviewActivity extends AppCompatActivity {
 
         scoreBar = (RatingBar)findViewById(R.id.ratingBar);
         submit = (Button)findViewById(R.id.review_submit_button);
+    }
+
+    private int getIndex(Spinner spinner, String myString)
+    {
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }

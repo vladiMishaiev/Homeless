@@ -51,6 +51,7 @@ public class MyReviewsActivity extends AppCompatActivity {
         reviewsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MyReviewsActivity.this, ReviewActivity.class);
+                intent.putExtra("ReviewID", reviews.get(position).getId());
                 startActivity(intent);
             }
         });
