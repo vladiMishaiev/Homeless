@@ -60,17 +60,6 @@
                 android:text="Sign out"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/user_addReview_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/holo_orange_dark"
-                android:elevation="0dp"
-                android:text="ADD REVIEW"
-                android:textStyle="bold" />
-
 
         </LinearLayout>
     </ScrollView>

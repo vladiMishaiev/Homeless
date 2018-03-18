@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     // UI references.
     private EditText mEmail, mPassword;
-    private Button btnSignIn,btnSignOut,btnAddItems,btnRegister;
+    private Button btnSignIn,btnRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
         btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
-        btnSignOut = (Button) findViewById(R.id.email_sign_out_button);
-        btnAddItems = (Button) findViewById(R.id.add_item_screen);
         btnRegister = (Button) findViewById(R.id.register);
 
         mAuth = FirebaseAuth.getInstance();
@@ -73,23 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     toastMessage("You didn't fill in all the fields.");
                 }
-            }
-        });
-
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                toastMessage("Signing Out...");
-            }
-        });
-
-        btnAddItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: Switching Activities.");
-                //Intent intent = new Intent(MainActivity.this, AddItemsToDatabase.class);
-                //startActivity(intent);
             }
         });
 

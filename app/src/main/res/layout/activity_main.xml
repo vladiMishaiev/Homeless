@@ -49,24 +49,6 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/email_sign_out_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Sign out"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/add_item_screen"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Add Items to Database"
-                android:textStyle="bold" />
-
-            <Button
                 android:id="@+id/register"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"

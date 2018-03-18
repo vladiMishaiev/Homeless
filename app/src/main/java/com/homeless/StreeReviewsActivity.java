@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +30,7 @@ public class StreeReviewsActivity extends AppCompatActivity {
     private ArrayList<Review> reviews;
     private ListView reviewsListView;
     private String city,street;
+    private TextView avgScore,pricePerM,numOfReviews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,9 @@ public class StreeReviewsActivity extends AppCompatActivity {
 
     private void initUI(){
         reviewsListView = (ListView)findViewById(R.id.reviewsListStreet);
+        avgScore = (TextView)findViewById(R.id.avgScoreInput);
+        pricePerM = (TextView)findViewById(R.id.pricePerMInput);
+        numOfReviews = (TextView)findViewById(R.id.numOfReviewsInput);
     }
 
     private void loadReviewsFromDB(){
@@ -82,14 +88,22 @@ public class StreeReviewsActivity extends AppCompatActivity {
             mDatabase.child("Reviews").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    double sumScore = 0,sumAvgPriceSize = 0;
                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                         Review itr = postSnapshot.getValue(Review.class);
                         if (itr.getCity().compareTo(city)==0 && itr.getStreet().compareTo(street)==0){
                             myReviews.add(itr);
+                            sumScore+=itr.getScore();
+                            if (itr.getSize()!=0 && itr.getPrice()!=0){
+                                sumAvgPriceSize += (itr.getPrice()/itr.getSize());
+                            }
                             Log.d(TAG, "onDataChange: review"+ itr.getId()+" loaded");
                         }
                     }
                     reviews = (ArrayList<Review>)myReviews;
+                    numOfReviews.setText(reviews.size()+"");
+                    pricePerM.setText(String.format("%.2f", sumAvgPriceSize/reviews.size()));
+                    avgScore.setText(String.format("%.2f",sumScore/reviews.size()));
                     updateListUI();
                 }
                 @Override

@@ -318,16 +318,27 @@
             <Button
                 android:id="@+id/review_submit_button"
                 style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
+                android:layout_width="234dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@android:color/holo_green_light"
                 android:elevation="0dp"
                 android:text="Submit"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ReviewInput"/>
+                app:layout_constraintTop_toBottomOf="@+id/ReviewInput" />
+
+            <Button
+                android:id="@+id/deleteReview"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/holo_red_light"
+                android:text="Delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/review_submit_button"
+                app:layout_constraintTop_toBottomOf="@+id/ReviewInput" />
 
             <Button
                 android:id="@+id/GoTo_Street_button"
@@ -342,6 +353,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/review_submit_button" />
+
+
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

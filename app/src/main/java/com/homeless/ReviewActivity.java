@@ -31,7 +31,7 @@ public class ReviewActivity extends AppCompatActivity {
     private CheckBox AC,bars,parking,elevators,accessFoDisabled,safetyRoom,terrace,sunTerrace,storage,renovated;
     private CheckBox shared,petsAllowed,isLongTermLease,isUnit,furnished,boiler;
     private RatingBar scoreBar;
-    private Button submit,toStreet;
+    private Button submit,toStreet,deleteReview;
     private Review myReview;
 
     private DatabaseReference mDatabase;
@@ -107,6 +107,8 @@ public class ReviewActivity extends AppCompatActivity {
                     int id = getNextReviewID();
                     myReview.setId(id);
                     myReview.setUserIdl(user.getUid());
+                }else if (myReview.getUserIdl().compareTo(user.getUid())!=0){
+                    return;
                 }
                 updateReviewProps();
 
@@ -122,7 +124,6 @@ public class ReviewActivity extends AppCompatActivity {
         toStreet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(ReviewActivity.this, StreeReviewsActivity.class);
                 //pass street and city
                 if (myReview != null) {
@@ -130,6 +131,22 @@ public class ReviewActivity extends AppCompatActivity {
                     intent.putExtra("City", myReview.getCity());
                 }
                 startActivity(intent);
+
+            }
+        });
+
+        deleteReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (myReview.getUserIdl().compareTo(user.getUid())!=0){
+                    return;
+                }
+                if (myReview != null) {
+                    mDatabase.child("Reviews").child(myReview.getId() + "").removeValue();
+                    Intent intent = new Intent(ReviewActivity.this, MapActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -191,6 +208,7 @@ public class ReviewActivity extends AppCompatActivity {
     }
     private void initUI(){
         addressField = (EditText)findViewById(R.id.ReviewAddress_Input);
+        addressField.setEnabled(false);
         userReview = (EditText)findViewById(R.id.ReviewInput);
 
         numOfRooms = (Spinner)findViewById(R.id.Rooms_Spinner);
@@ -224,6 +242,7 @@ public class ReviewActivity extends AppCompatActivity {
         boiler = (CheckBox)findViewById(R.id.Boiler_Box);
 
         scoreBar = (RatingBar)findViewById(R.id.ratingBar);
+        deleteReview = (Button)findViewById(R.id.deleteReview);
         submit = (Button)findViewById(R.id.review_submit_button);
         toStreet = (Button)findViewById(R.id.GoTo_Street_button);
     }

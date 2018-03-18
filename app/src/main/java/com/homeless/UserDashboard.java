@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class UserDashboard extends AppCompatActivity {
     private static final String TAG = "UserDashboardActivity";
     private FirebaseAuth mAuth;
-    private Button btnSignOut,editAccount,btnMap,btnAddReview,btnMyReview;
+    private Button btnSignOut,editAccount,btnMap,btnMyReview;
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,6 @@ public class UserDashboard extends AppCompatActivity {
         btnSignOut = (Button) findViewById(R.id.user_signout_button);
         editAccount = (Button) findViewById(R.id.user_edit_button);
         btnMap = (Button) findViewById(R.id.user_map_button);
-        btnAddReview = (Button) findViewById(R.id.user_addReview_button);
         btnMyReview = (Button) findViewById(R.id.user_reviews_button);
     }
 
@@ -44,14 +43,6 @@ public class UserDashboard extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnAddReview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(UserDashboard.this, ReviewActivity.class);
-                startActivity(intent);
-            }
-        });
-
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
