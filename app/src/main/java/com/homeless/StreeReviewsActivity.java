@@ -27,6 +27,7 @@ public class StreeReviewsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ArrayList<Review> reviews;
     private ListView reviewsListView;
+    private String city,street;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,11 @@ public class StreeReviewsActivity extends AppCompatActivity {
         setListViewLitener();
 
         //extract street and city
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            city = extras.getString("City");
+            street = extras.getString("Street");
+        }
     }
 
     @Override
@@ -64,7 +70,7 @@ public class StreeReviewsActivity extends AppCompatActivity {
     }
 
     private void initUI(){
-        reviewsListView = (ListView)findViewById(R.id.reviewsList);
+        reviewsListView = (ListView)findViewById(R.id.reviewsListStreet);
     }
 
     private void loadReviewsFromDB(){
@@ -78,7 +84,7 @@ public class StreeReviewsActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                         Review itr = postSnapshot.getValue(Review.class);
-                        if (itr.getUserIdl().compareTo(currentUserID)==0){
+                        if (itr.getCity().compareTo(city)==0 && itr.getStreet().compareTo(street)==0){
                             myReviews.add(itr);
                             Log.d(TAG, "onDataChange: review"+ itr.getId()+" loaded");
                         }

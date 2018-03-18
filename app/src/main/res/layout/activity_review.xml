@@ -330,18 +330,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/ReviewInput"/>
 
             <Button
-                android:id="@+id/GoTo_Neighborhood_button"
+                android:id="@+id/GoTo_Street_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@android:color/holo_green_light"
                 android:elevation="0dp"
-                android:text="Neighborhood Reviews"
+                android:text="Street Reviews"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/review_submit_button"/>
+                app:layout_constraintTop_toBottomOf="@+id/review_submit_button" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

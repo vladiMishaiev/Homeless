@@ -31,7 +31,7 @@ public class ReviewActivity extends AppCompatActivity {
     private CheckBox AC,bars,parking,elevators,accessFoDisabled,safetyRoom,terrace,sunTerrace,storage,renovated;
     private CheckBox shared,petsAllowed,isLongTermLease,isUnit,furnished,boiler;
     private RatingBar scoreBar;
-    private Button submit;
+    private Button submit,toStreet;
     private Review myReview;
 
     private DatabaseReference mDatabase;
@@ -118,6 +118,22 @@ public class ReviewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        toStreet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(ReviewActivity.this, StreeReviewsActivity.class);
+                //pass street and city
+                if (myReview != null) {
+                    intent.putExtra("Street", myReview.getStreet());
+                    intent.putExtra("City", myReview.getCity());
+                }
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     private void updateReviewUI(){
@@ -209,6 +225,7 @@ public class ReviewActivity extends AppCompatActivity {
 
         scoreBar = (RatingBar)findViewById(R.id.ratingBar);
         submit = (Button)findViewById(R.id.review_submit_button);
+        toStreet = (Button)findViewById(R.id.GoTo_Street_button);
     }
 
     private int getIndex(Spinner spinner, String myString)

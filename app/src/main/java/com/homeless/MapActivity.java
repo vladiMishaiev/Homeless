@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -34,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.homeless.Logic.CustomInfoWindowAdapter;
 import com.homeless.Logic.PlaceAutocompleteAdapter;
 import com.homeless.Logic.Review;
 
@@ -89,36 +91,22 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.On
     }
 
     private void setMarker(Review review){
-        MarkerOptions options = new MarkerOptions()
+       /* Marker options = new Marker()
                 .position(new LatLng(review.getLat(), review.getLon()))
-                .title(review.getAddress());
-        gMap.addMarker(options);
-    }
-
-    private void setOnMarkerClick (){
-        gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            public boolean onMarkerClick(Marker marker) {
-                // Check if there is an open info window
-                if (lastOpenned != null) {
-                    // Close the info window
-                    lastOpenned.hideInfoWindow();
-                    // Is the marker the same marker that was already open
-                    if (lastOpenned.equals(marker)) {
-                        // Nullify the lastOpenned object
-                        lastOpenned = null;
-                        // Return so that the info window isn't openned again
-                        return true;
-                    }
-                }
-                // Open the info window for the marker
-                marker.showInfoWindow();
-                // Re-assign the last openned such that we can close it later
-                lastOpenned = marker;
-
-                // Event was handled by our code do not launch default behaviour.
-                return true;
-            }
-        });
+                .title(review.getAddress());*/
+        //gMap.addMarker(marker);
+        gMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
+        Marker marker = gMap.addMarker(new MarkerOptions().
+                position(new LatLng(review.getLat(), review.getLon())).
+                title(review.getAddress()).
+                snippet("Rooms: "+review.getNumOfRooms()
+                        +", Floor: "+review.getFloor()
+                        +", Size: " +review.getSize()+"\n"
+                        +"Score: " + review.getScore()+ "\n"
+                        +"Price: " + review.getPrice()+"\n"
+                        +"Click for more details"));
+        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_home));
+        marker.setTag(review);
     }
 
     private void initUI(){
@@ -235,16 +223,26 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.On
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 gMap = googleMap;
-                initMarkers();
+                //initMarkers();
                 gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 18f));
+                        Review myRestoredData = (Review) marker.getTag();
                         return false;
                     }
                 });
 
-                //gMap.setOnInfoWindowClickListener();
+                gMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener(){
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Review myRestoredData = (Review) marker.getTag();
+                        Log.d(TAG, " * * * * * onInfoWindowClick: " + myRestoredData.getAddress());
+                        Intent intent = new Intent(MapActivity.this, ReviewActivity.class);
+                        intent.putExtra("ReviewID", myRestoredData.getId());
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }
@@ -270,12 +268,12 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.On
         return false;
     }
 
-    private void initMarkers() {
+    /*private void initMarkers() {
         markers = new ArrayList<>();
-        /*for(Record r : records) {
+        for(Record r : records) {
             markers.add(gMap.addMarker(new MarkerOptions().position(new LatLng(r.getLat(), r.getLang())).visible(true).title("Name: " + r.getName()).snippet("Score: " + r.getScore())));
-        }*/
-    }
+        }
+    }*/
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
