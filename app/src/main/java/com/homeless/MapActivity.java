@@ -1,6 +1,7 @@
 package com.homeless;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +28,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.homeless.Logic.PlaceAutocompleteAdapter;
+import com.homeless.Logic.Review;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,26 +47,109 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.On
     private static final float DEFAULT_ZOOM = 15f;
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
-
+    private Button newReviewBtn,toDashboardBtn;
     private GoogleMap gMap;
     private List<Marker> markers;
     private AutoCompleteTextView mSearchText;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
-
+    private Address address;
+    private DatabaseReference mDatabase;
+    private Marker lastOpenned = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         initUI();
+        setButtons();
+
         if(isServicesOK()){
             initMap();
             init();
+            setReviewsMarkers();
         }
+    }
+
+    private void setReviewsMarkers(){
+        mDatabase.child("Reviews").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Review itr = postSnapshot.getValue(Review.class);
+                    setMarker(itr);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled: failed loading reviews from DB");
+            }
+        });
+    }
+
+    private void setMarker(Review review){
+        MarkerOptions options = new MarkerOptions()
+                .position(new LatLng(review.getLat(), review.getLon()))
+                .title(review.getAddress());
+        gMap.addMarker(options);
+    }
+
+    private void setOnMarkerClick (){
+        gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            public boolean onMarkerClick(Marker marker) {
+                // Check if there is an open info window
+                if (lastOpenned != null) {
+                    // Close the info window
+                    lastOpenned.hideInfoWindow();
+                    // Is the marker the same marker that was already open
+                    if (lastOpenned.equals(marker)) {
+                        // Nullify the lastOpenned object
+                        lastOpenned = null;
+                        // Return so that the info window isn't openned again
+                        return true;
+                    }
+                }
+                // Open the info window for the marker
+                marker.showInfoWindow();
+                // Re-assign the last openned such that we can close it later
+                lastOpenned = marker;
+
+                // Event was handled by our code do not launch default behaviour.
+                return true;
+            }
+        });
     }
 
     private void initUI(){
         mSearchText = (AutoCompleteTextView) findViewById(R.id.input_search);
+        newReviewBtn = (Button) findViewById(R.id.newReviewMapBtn);
+        toDashboardBtn = (Button)findViewById(R.id.deshboardBtnMap);
+    }
+
+    private void setButtons (){
+        newReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapActivity.this, ReviewActivity.class);
+                if (address != null) {
+                    intent.putExtra("Lat", address.getLatitude());
+                    intent.putExtra("Lon", address.getLongitude());
+                    intent.putExtra("City", address.getLocality());
+                    intent.putExtra("Street", address.getThoroughfare());
+                    intent.putExtra("Address",mSearchText.getText().toString());
+                }
+                startActivity(intent);
+            }
+        });
+
+        toDashboardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapActivity.this, UserDashboard.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void init(){
@@ -113,11 +205,10 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.On
         }
 
         if(list.size() > 0){
-            Address address = list.get(0);
+            address = list.get(0);
 
             Log.d(TAG, "geoLocate: found a location: " + address.toString());
             //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
-
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM,
                     address.getAddressLine(0));
         }
@@ -133,7 +224,6 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.On
                     .title(title);
             gMap.addMarker(options);
         }
-
         //hideSoftKeyboard();
     }
 
@@ -149,10 +239,12 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.On
                 gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 14f));
+                        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 18f));
                         return false;
                     }
                 });
+
+                //gMap.setOnInfoWindowClickListener();
             }
         });
     }

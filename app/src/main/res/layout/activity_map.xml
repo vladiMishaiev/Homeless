@@ -37,7 +37,7 @@
             android:hint="Enter Address, City or Zip Code"
             android:imeOptions="actionSearch"
             android:textColor="#000"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -70,14 +70,14 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="New Review" />
 
         <Button
             android:id="@+id/deshboardBtnMap"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="To Dashboard" />
     </LinearLayout>
 
 

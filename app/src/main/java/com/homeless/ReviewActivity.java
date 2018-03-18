@@ -49,11 +49,24 @@ public class ReviewActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int value = extras.getInt("ReviewID");
-            //loadReview(Integer.parseInt(value));
-            loadReview(value);
+            if (value!=0)
+                loadReview(value);
+            else {
+                setAddressDetails(extras.getDouble("Lat"),extras.getDouble("Lon"),extras.getString("City"),
+                        extras.getString("Street"),extras.getString("Address"));
+            }
         }
 
         setButtons();
+    }
+
+    private void setAddressDetails(double lat, double lon, String city, String street, String address) {
+        myReview = new Review();
+        myReview.setLat(lat);
+        myReview.setLon(lon);
+        myReview.setCity(city);
+        myReview.setStreet(street);
+        addressField.setText(address);
     }
 
     private void loadReview(final int id){
@@ -90,6 +103,10 @@ public class ReviewActivity extends AppCompatActivity {
                 if (myReview==null){
                     int id = getNextReviewID();
                     myReview = new Review(id,user.getUid());
+                }else if (myReview.getId()==0){
+                    int id = getNextReviewID();
+                    myReview.setId(id);
+                    myReview.setUserIdl(user.getUid());
                 }
                 updateReviewProps();
 

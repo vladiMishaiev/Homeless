@@ -9,7 +9,11 @@ public class Review {
     private String userIdl;
     //private String country;
     private String neighborhood;
+    private double lat,lon;
 
+
+
+    private String city,street;
 
 
     private String address;
@@ -49,7 +53,37 @@ public class Review {
         initPrps();
     }
 
+    public double getLat() {
+        return lat;
+    }
 
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
     private void initPrps(){
         AC = false;
         bars = false;
